@@ -1,7 +1,7 @@
 # Work In Progress / Experimental - Toilets4London Api V2
 
-- This reimplementation is supposed to make this API more scalable to other cities, as data can be loading incrementally, based on location.
-- A new Toilet schema is being trialled with new fields, based on expert recommendation and user research. This would cover more details such as RADAR key, changing places etc.
+- This reimplementation is supposed to make this API more scalable to other cities, as data can be loaded incrementally, based on location.
+- A new Toilet schema is being trialled with new fields, based on expert recommendations and user research. This would cover more details such as RADAR key, changing places etc.
 - This piece of work will also involve improvement of the web scraping scripts, in order to attempt to extract more detailed info wherever possible.
 
 ### Use of Docker
@@ -77,8 +77,10 @@ To create superuser (only run once)
 docker-compose -f docker-compose.prod.yml exec web python3 manage.py createsuperuser
 ```
 
+As in staging, make sure to add the required files (`.env.prod`, `.env.prod.db`, `.env.prod.proxy-companion`) on the remote server
 
 #### Contents of .env.staging or .env.prod
+```
 DEBUG=0
 SECRET_KEY=longrandomstring
 DJANGO_ALLOWED_HOSTS=<yourdomain>
@@ -91,14 +93,19 @@ SQL_PORT=5432
 DATABASE=postgres
 VIRTUAL_HOST=<yourdomain>
 VIRTUAL_PORT=8000
-LETSENCRYPT_HOST=<yourdomain>
+LETSENCRYPT_HOST=<yourdomain
+```
 
 #### Contents of .env.staging.proxy-companion or .env.prod.proxy-companion
+```
 DEFAULT_EMAIL=<youremail>
-ACME_CA_URI=https://acme-staging-v02.api.letsencrypt.org/directory *only use this in staging*
+ACME_CA_URI=https://acme-staging-v02.api.letsencrypt.org/directory **only use this in staging**
 NGINX_PROXY_CONTAINER=nginx-proxy
+```
 
 #### Contents of .env.staging.db or .env.prod.db
+```
 POSTGRES_USER=<databaseuser>
 POSTGRES_PASSWORD=<databasepassword>
 POSTGRES_DB=<databasename>
+```
