@@ -4,11 +4,11 @@ from django.contrib.gis.geos import Point
 
 class Toilet(models.Model):
     name = models.CharField(max_length=100, blank=False)
-    address = models.CharField(max_length=100, blank=True, default="")
-    access_notes = models.CharField(max_length=100, blank=True, default="")
+    address = models.CharField(max_length=300, blank=True, default="")
+    access_notes = models.CharField(max_length=300, blank=True, default="")
     is_free = models.BooleanField(default=True)
     charge = models.CharField(max_length=100, blank=True, default="")
-    opening_hours = models.CharField(max_length=100, blank=True, default="")
+    opening_hours = models.CharField(max_length=300, blank=True, default="")
     is_open = models.BooleanField(default=True)
     male_only = models.BooleanField(default=False)
     female_only = models.BooleanField(default=False)
@@ -20,7 +20,7 @@ class Toilet(models.Model):
     changing_place = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
-    data_source = models.CharField(max_length=100, blank=True, default="")
+    data_source = models.CharField(max_length=200, blank=True, default="")
     location = models.PointField(geography=True, default=Point(0.0, 0.0))
     num_ratings = models.IntegerField(blank=True, default=0)
     rating = models.FloatField(blank=True, null=True)
