@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      context: ./ToiletApiNew
+      dockerfile: Dockerfile
+    volumes:
+      - ./ToiletApiNew/:/usr/src/ToiletApiNew/
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - ./.env.dev
+    command: bash -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
+  db:
+    image: postgis/postgis
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=geodjango
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+volumes:
+  postgres_data:

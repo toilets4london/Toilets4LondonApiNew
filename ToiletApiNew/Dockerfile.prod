@@ -1,0 +1,33 @@
+FROM osgeo/gdal:ubuntu-small-latest
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# create directory for the app user
+RUN mkdir -p /home/app
+
+# create the app user
+RUN adduser app
+
+# create the appropriate directories
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
+
+# copy project
+COPY . $APP_HOME
+
+# install dependencies
+RUN echo "Acquire::Check-Valid-Until \"false\";\nAcquire::Check-Date \"false\";" | cat > /etc/apt/apt.conf.d/10no--check-valid-until
+RUN apt-get update -y
+RUN apt-get install -y python
+RUN apt-get install -y python3-pip
+RUN apt-get install -y python3-dev libpq-dev 
+RUN pip3 install -r requirements.txt
+
+# chown all the files to the app user
+RUN chown -R app $APP_HOME
+
+# change to the app user
+USER app
+

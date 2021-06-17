@@ -1,0 +1,12 @@
+*.log
+*.pot
+*.pyc
+*/__pycache__/
+staticfiles/
+media/
+.cache/
+.env.prod
+.env.prod.db
+.env.prod.*
+venv/
+*.DS_Store
